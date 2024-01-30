@@ -1,52 +1,54 @@
-def texto_color(texto: str, color: str) -> str:
+def texto_color(texto: str, color: str = "verde_oscuro", decoration: int = 0) -> str:
     """
-    Metodo para darle color a un texto
+    Metodo para darle color a un texto por medio de ANSI escape character sequences
+    https://en.wikipedia.org/wiki/ANSI_escape_code
+    https://www.youtube.com/watch?v=Ircu1AqsdMo
 
     :arg
     texto (str): Texto al que se le va a dar color.
-    color (str): Color que se le va a dar color.
+    color (str): default (blanco) Color que se le va a dar color.
 
     :return
     texto (str): El texto con el color dado
     """
     ascii_color = "\033[39m {}\033[00m"
     if color == "negro":
-        ascii_color = "\033[30m {}\033[00m"
+        color = "\033[30m {}\033[00m"
     elif color == "rojo_oscuro":
-        ascii_color = "\033[31m {}\033[00m"
+        color = "\033[31m {}\033[00m"
     elif color == "verde_oscuro":
-        ascii_color = "\033[32m {}\033[00m"
+        color = "\033[32m {}\033[00m"
     elif color == "amarillo_oscuro":
-        ascii_color = "\033[33m {}\033[00m"
+        color = "\033[33m {}\033[00m"
     elif color == "azul_oscuro":
-        ascii_color = "\033[34m {}\033[00m"
+        color = "\033[34m {}\033[00m"
     elif color == "magenta_oscuro":
-        ascii_color = "\033[35m {}\033[00m"
+        color = "\033[35m {}\033[00m"
     elif color == "cyan_oscuro":
-        ascii_color = "\033[36m {}\033[00m"
+        color = "\033[36m {}\033[00m"
     elif color == "gris":
-        ascii_color = "\033[37m {}\033[00m"
+        color = "\033[37m {}\033[00m"
     elif color == "gris_oscuro":
-        ascii_color = "\033[90m {}\033[00m"
+        color = "\033[90m {}\033[00m"
     elif color == "rojo":
-        ascii_color = "\033[91m {}\033[00m"
+        color = "\033[91m {}\033[00m"
     elif color == "verde":
-        ascii_color = "\033[92m {}\033[00m"
+        color = "\033[92m {}\033[00m"
     elif color == "amarillo":
-        ascii_color = "\033[93m {}\033[00m"
+        color = "\033[93m {}\033[00m"
     elif color == "azul":
-        ascii_color = "\033[94m {}\033[00m"
+        color = "\033[94m {}\033[00m"
     elif color == "magenta":
-        ascii_color = "\033[95m {}\033[00m"
+        color = "\033[95m {}\033[00m"
     elif color == "cyan":
-        ascii_color = "\033[96m {}\033[00m"
+        color = "\033[96m {}\033[00m"
     elif color == "blanco":
-        ascii_color = "\033[97m {}\033[00m"
+        color = "\033[97m {}\033[00m"
 
-    return ascii_color.format(texto)
+    return color.format(texto)
 
 
-def error(texto: str):
+def error(texto: str) -> str:
     """
     Metodo para generar un mensaje de error
 
@@ -59,7 +61,7 @@ def error(texto: str):
     return texto_color(texto, "rojo")
 
 
-def advertencia(texto: str):
+def advertencia(texto: str) -> str:
     """
     Metodo para generar un mensaje de advertencia
 
@@ -72,7 +74,7 @@ def advertencia(texto: str):
     return texto_color(texto, "amarillo")
 
 
-def info(texto: str):
+def info(texto: str) -> str:
     """
     Metodo para generar un mensaje de información
 
@@ -85,7 +87,7 @@ def info(texto: str):
     return texto_color(texto, "azul")
 
 
-def confirm(texto: str):
+def confirm(texto: str) -> str:
     """
     Metodo para generar un mensaje de información
 
@@ -98,20 +100,45 @@ def confirm(texto: str):
     return texto_color(texto, "verde")
 
 
-def texto_es_numero(valor: str):
+def obtener_entero(mensaje: str = None) -> int:
     """
-    Metodo para validar y solicitar un número entero
+    Metodo para solicitar y validar un número entero
 
     :arg
-    valor: número que se desea solicitar
+    mensaje: texto para solicitar el número
 
     :return
-    numero: numero entero
+    valor: número entero obtenido
     """
+    valor = input(mensaje if mensaje is not None else info("Ingrese un numero entero: "))
     while True:
         if valor.isnumeric():
             return int(valor)
         else:
-            print(error(f"El texto {valor} no se puede convertir a numero"))
-            print(advertencia("Ingresa nuevamente un numero"))
-            valor = input()
+            print(error(f"El texto \"{valor}\" no se puede convertir a numero"))
+            valor = input(advertencia("Ingresa nuevamente un numero: "))
+
+
+def obtener_flotante(mensaje: str = None) -> float:
+    """
+    Metodo para solicitar y validar un número flotante
+
+    :arg
+    mensaje: texto para solicitar el número
+
+    :return
+    valor: número flotante obtenido
+    """
+    valor = input(mensaje if mensaje is not None else info("Ingrese un numero flotante: "))
+    while True:
+        try:
+            return float(valor)
+        except ValueError:
+            print(error(f"El texto \"{valor}\" no se puede convertir a numero flotante"))
+            valor = input(advertencia("Ingresa nuevamente un numero flotante: "))
+
+
+if __name__ == '__main__':
+    print(texto_color("Hola Mundo"))
+    obtener_entero("Dame un numeroooo: ")
+    pass

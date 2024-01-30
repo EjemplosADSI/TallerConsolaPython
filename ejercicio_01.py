@@ -13,25 +13,35 @@ from utils import *
 '''
 
 
-def calcular_cociente():
+def calcular_cociente(numero_1: int, numero_2: int) -> float:
+    """
+
+    :param numero_1:
+    :param numero_2:
+    :return:
+    """
+    if numero_2 == 0:
+        print(error("La división por cero es una indeterminación"))
+        return 0
+    else:
+        return round(numero_1 / numero_2, 2)
+
+
+def menu_cociente():
     """
     Metodo para calcular el cociente de dos numeros
     """
     print("")
     print(info("Calculadora de cociente: "))
 
-    print(info("Ingrese el primer numero:"))
-    numero_1 = texto_es_numero(input())
+    numero_1 = obtener_entero(info("Ingrese el primer numero: "))
+    numero_2 = obtener_entero(info("Ingrese el segundo numero: "))
 
-    print(info("Ingrese el segundo numero:"))
-    numero_2 = texto_es_numero(input())
-
-    if numero_2 == 0:
-        print(error("La división por cero es una indeterminación"))
-    else:
-        resultado = numero_1 / numero_2
-        print(confirm(f"El resultado del cociente es: {round(resultado, 2)}"))
+    resultado = calcular_cociente(numero_1, numero_2)
+    print(confirm(f"El resultado del cociente es: {resultado}"))
 
 
 if __name__ == '__main__':
-    calcular_cociente()
+    a = 5
+    b = 6
+    print(calcular_cociente(a, b))
