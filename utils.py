@@ -111,12 +111,14 @@ def obtener_entero(mensaje: str = None) -> int:
     valor: número entero obtenido
     """
     valor = input(mensaje if mensaje is not None else info("Ingrese un numero entero: "))
+    # if valor.isnumeric(): # isdigit and isdecimal
+    #     return int(valor)
     while True:
-        if valor.isnumeric():
+        try:
             return int(valor)
-        else:
-            print(error(f"El texto \"{valor}\" no se puede convertir a numero"))
-            valor = input(advertencia("Ingresa nuevamente un numero: "))
+        except ValueError:
+            print(error(f"El texto \"{valor}\" no se puede convertir a numero entero"))
+            valor = input(advertencia("Ingresa nuevamente un numero entero: "))
 
 
 def obtener_flotante(mensaje: str = None) -> float:
@@ -130,6 +132,8 @@ def obtener_flotante(mensaje: str = None) -> float:
     valor: número flotante obtenido
     """
     valor = input(mensaje if mensaje is not None else info("Ingrese un numero flotante: "))
+    # if valor.isdecimal():
+    #     return float(valor)
     while True:
         try:
             return float(valor)

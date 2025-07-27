@@ -2,6 +2,8 @@
 import ejercicio_01
 import ejercicio_02
 import ejercicio_03
+import ejercicio_04
+import ejercicio_05_08
 from utils import *
 
 
@@ -12,6 +14,8 @@ def menu():
         print(advertencia("1) Cociente de 2 Numeros:"))
         print(advertencia("2) Numero par o impar"))
         print(advertencia("3) Radio del Circulo"))
+        print(advertencia("4) Multiplo de 2 y 3"))
+        print(advertencia("5) Validar Fecha"))
         print(advertencia("30) Salir"), end="\n", sep="-")
 
         opcion = obtener_flotante("")
@@ -21,6 +25,10 @@ def menu():
             ejercicio_02.menu_par()
         elif opcion == 3:
             ejercicio_03.menu_radio_circulo()
+        elif opcion == 4:
+            ejercicio_04.menu_multiplos()
+        elif opcion == 5:
+            ejercicio_05_08.menu_validar_fecha()
         elif opcion == 30:
             print(info("Programa finalizado..."))
             exit(0)
